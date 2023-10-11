@@ -217,3 +217,5 @@ while (True):
     accntNumber = input("Enter the account number: ")
     bankName = input("Enter Bank name: ")
     BankAccount.balance(accntNumber)
+  else:
+    print("Please enter a valid choice")
