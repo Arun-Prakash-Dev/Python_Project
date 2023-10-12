@@ -1,5 +1,5 @@
 import random
-from validate import validate_pan, validate_aadhaar
+from validate import *
 
 IFSCDict = {'ICICI': 'ICICI163805', 'IOB': 'IOBA109867', 'SBI': 'SBIA234690'}
 bankDict = {}
@@ -105,7 +105,13 @@ def randomnumber(N):
 
 
 while (True):
-  print("")
+
+  for i in accntDict:
+    print("")
+    print('||', i.accntNumber, ' : ', i.name, '||')
+    print("")
+
+  print("---------------------------------------")
   print("1: Press 1 to create an account")
   print("2: Press 2 to delete an account")
   print("3: Press 3 to update account")
@@ -114,11 +120,9 @@ while (True):
   print("6: Press 6 to transfer funds")
   print("7: Press 7 to search")
   print("8: Press 8 to check balance")
+  print("---------------------------------------")
 
   choice = int(input("Enter your choice: "))
-
-  for i in accntDict:
-    print(i.accntNumber, ' : ', i.name)
 
   if choice == 1:
     bankName = input("Enter the Bank Name: ")
@@ -126,10 +130,20 @@ while (True):
     name = input("Enter Account Holder Name: ")
     age = input("Enter the age: ")
     gender = input("Enter the gender: ")
-    DOB = input("Enter the DOB: ")
+    while (True):
+      DOB = input("Enter the DOB: ")
+      if (validate_DOB(DOB)):
+        break
+      else:
+        print("Invalid DOB , Enter again")
     address = input("Enter the address: ")
     city = input("Enter the city: ")
-    accntType = input("Enter the account type: ")
+    while (True):
+      accntType = input("Enter the account type: ")
+      if (validate_accnt_type(accntType)):
+        break
+      else:
+        print("Invalid account type, Enter again")
     balance = input("Enter the balance: ")
     while (True):
       PAN = input("Enter the PAN: ")
@@ -149,7 +163,6 @@ while (True):
     obj.createAccount()
     accntDict.append(obj)
   elif choice == 2:
-    bankName = input("Enter the Bank Name: ")
     name = input("Enter the account holder name: ")
     BankAccount.deleteAccount(name)
   elif choice == 3:
@@ -158,8 +171,13 @@ while (True):
     print("Press C to update DOB")
 
     ch = input("Enter to update details: ")
-    bankName = input("Enter bank name: ")
-    accntNumber = input("Enter account number: ")
+    while (True):
+      accntNumber = input("Enter account number: ")
+      if (validate_accnt_num):
+        break
+      else:
+        print("Invalid account Number, Enter again")
+
     if ch == 'A':
       name = input("Enter the new name: ")
       BankAccount.updateName(accntNumber, name)
@@ -170,13 +188,24 @@ while (True):
       DOB = input("Enter the new DOB: ")
       BankAccount.updateDOB(accntNumber, DOB)
   elif choice == 4:
+    while (True):
+      accntNumber = input("Enter account number: ")
+      if (validate_accnt_num):
+        break
+      else:
+        print("Invalid account Number, Enter again")
 
-    accntNumber = input('Enter the account number: ')
     amount = int(input('Enter the amount to deposit: '))
     BankAccount.deposit(accntNumber, amount)
   elif choice == 5:
 
-    accntNumber = input('Enter the account number: ')
+    while (True):
+      accntNumber = input("Enter account number: ")
+      if (validate_accnt_num):
+        break
+      else:
+        print("Invalid account Number, Enter again")
+
     amount = int(input('Enter the amount to withdraw: '))
     BankAccount.withdraw(accntNumber, amount)
 
@@ -214,8 +243,12 @@ while (True):
       print("Invalid Choice!!")
 
   elif choice == 8:
-    accntNumber = input("Enter the account number: ")
+    while (True):
+      accntNumber = input("Enter account number: ")
+      if (validate_accnt_num):
+        break
+      else:
+        print("Invalid account Number, Enter again")
+
     bankName = input("Enter Bank name: ")
     BankAccount.balance(accntNumber)
-  else:
-    print("Please enter a valid choice")
